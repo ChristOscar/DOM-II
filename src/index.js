@@ -47,3 +47,32 @@ window.addEventListener('resize', event => {
     alert(`The window size is at ${window.innerHeight} by ${window.innerWidth}`)
     }
 })
+
+
+//Scrolling Across the window
+const logoHeading = document.querySelector('.logo-heading');
+let lastKnownScrollPosition = 0;
+let ticking = false;
+
+document.addEventListener('scroll', function() {
+  lastKnownScrollPosition = window.scrollY;
+
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      logoHeading.innerHTML = `${lastKnownScrollPosition}`;
+      console.log(`${lastKnownScrollPosition}`)
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
+
+
+//Selecting Items in DOM
+const input = document.querySelector('#input');
+input.addEventListener('select', onSelect);
+function onSelect(event) {
+  const selection = event.target.value.substring(event.target.selectionStart, event.target.selectionEnd);
+  logoHeading.innerHTML = `You selected: ${selection}`;
+}
